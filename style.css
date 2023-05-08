@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background-color: #FDF2BE;
+  transition: background-color 0.6s ease;
+  overflow: hidden;
+}
+body.dark {
+  background-color: #44432d;
+}
+
+.toggledark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+  font-size: 3rem;
+  color: #44432d;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.6s ease;
+  transform-origin: 3rem 3rem;
+
+  z-index: 2;
+}
+
+.things {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  transition: transform 0.6s ease;
+}
+
+.things img {
+  position: absolute;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 1rem;
+
+  transform: scale(1) translate(-50%, -50%);
+  transition: transform 0.6s ease;
+}
+
+.darken {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+.description {
+  width: 20rem;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(0, -50%);
+
+  color: white;
+  opacity: 0;
+
+  transition: opacity 0.6s ease;
+
+  pointer-events: none;
+}
+
+.description a {
+  color: white;
+  text-decoration: wavy underline;
+  font-size: 3rem;
+}

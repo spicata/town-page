@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>the town</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- <button class="toggledark" onclick="document.body.classList.toggle('dark'); this.innerText = (this.innerText === '🌙') ? '☀️' : '🌙'; this.style.transform = (this.innerText === '🌙') ? 'rotate(0deg)' : 'rotate(360deg)';">
+    🌙
+  </button> -->
+  <div class="darken"></div>
+  <div class="things">
+    <img src="./spicata.png" alt="spicata!" aria-label="spicata.99000000.xyz" aria-details="I am a simply guy going absolutely bonkers. Feel free to checkout my notes, or my very badly written comic strip." aria-live="https://spicata.99000000.xyz/">
+
+    <img src="./thomas.png" alt="thomas!" aria-label="Jacaranda" aria-details="whoa" aria-live="https://nottacoz.github.io/jacaranda/">
+
+    <img src="./ossac.png" alt="ossac!" aria-label="Not Mario's notes" aria-details="things and stuff (but mostly things)" aria-live="https://notmario.github.io/thenotes/">
+
+    <img src="./ed.png" alt="ed!" aria-label="Ed's Obsidian Notes v.3" aria-details="Welcome to my website! I'm Ed, and this website is essentially Obsidian Publish on steroids, i.e. this is where I publish my obsidian notes..." aria-live="https://edsobsidiannotes.netlify.app/">
+
+    <img src="./jlee.png" alt="nottaro!" aria-label="NotTaro's Notes Dump" aria-details="a little dump where i chuck notes and writings" aria-live="https://nottaros-notes-dump.netlify.app/">
+
+    <img src="./kento.png" alt="kento!" aria-label="The Chicken Ranch" aria-details="The Rancher ranching on his ranch (with his chickens)" aria-live="https://pi-thagoras.github.io/the-chicken-pen/">
+    
+    <img src="./tom.png" alt="tom!" aria-label="Cringe Notes" aria-details="AAAAAAAAARGH" aria-live="https://grimreaper2654.github.io/Notes/">
+    
+    <img src="./wsm.png" alt="shanmei!" aria-label="Shan-Mei's Notes" aria-details="The purpose of these notes is to:<br>1. Help classmates and the junior years in catching up with work when they don't pay attention :)<br>2. Publicise my music theory courses and provide the free extra theory and lit content to anyone who doesn't want to pay for a course.<br>3. 'Make education free and accessible' - Edward (don't you worry, I follow the same principle)" aria-live="https://shan-mei.github.io/shanmeis-notes/">
+  </div>
+  <div class="description">
+    <h1>The TOOMwn</h1>
+    <p>A little collection of websites and notes and other things</p>
+  </div>
+  <script>
+    // position things
+    const things = document.querySelector('.things');
+
+    // loop over children
+    for (let i = 0; i < things.children.length; i++) {
+      const thing = things.children[i];
+
+      let off_x = Math.sin(i / things.children.length * 2 * Math.PI);
+      let off_y = Math.cos(i / things.children.length * 2 * Math.PI);
+
+      // set position
+      thing.style.marginLeft = `calc(50vw + ${off_x * (things.children.length * 1.4 + 3)}rem)`;
+      thing.style.marginTop = `calc(50vh - ${off_y * (things.children.length * 1.4 + 3)}rem)`;
+
+      // on click, scale up!
+      thing.addEventListener('click', () => {
+        // if we are already clicked, scale down
+        if (thing.style.zIndex == 100) {
+          // all things back to normal
+          console.log ("hello")
+          for (let j = 0; j < things.children.length; j++) {
+            things.children[j].style.transform = 'scale(1) translate(-50%, -50%)';
+            things.children[j].style.zIndex = 0;
+          }
+
+          // things div back to normal
+          things.style.transform = 'none';
+
+          // background color back to normal
+          document.querySelector('.darken').style.opacity = 0;
+
+          // and hide description
+          document.querySelector('.description').style.opacity = 0;
+
+          // disable pointer events
+          document.querySelector('.description').style.pointerEvents = 'none';
+        } else {
+          thing.style.transform = 'scale(2) translate(-25%, -25%)';
+          // on top
+          thing.style.zIndex = 100;
+
+          // others smaller
+          for (let j = 0; j < things.children.length; j++) {
+            if (j !== i) {
+              things.children[j].style.transform = 'scale(0.5) translate(-100%, -100%)';
+              things.children[j].style.zIndex = 0;
+            }
+          }
+
+          // *and* offset things div itself so this is in the center
+          things.style.transform = `translate(calc(-15rem + ${-off_x * (things.children.length * 1.4 + 3)}rem), ${off_y * (things.children.length * 1.4 + 3)}rem)`;
+
+          // darken background color
+          document.querySelector('.darken').style.opacity = 1;
+
+          // and show description
+          document.querySelector('.description').style.opacity = 1;
+          document.querySelector('.description').innerHTML = `
+            <h1>${thing.getAttribute('aria-label')}</h1>
+            <p>${thing.getAttribute('aria-details')}</p>
+          `;
+          if (thing.getAttribute('aria-live') !== null) {
+            document.querySelector('.description').innerHTML += `
+              <a href="${thing.getAttribute('aria-live')}">go</a>
+            `;
+          }
+
+          // enable pointer events
+          document.querySelector('.description').style.pointerEvents = 'all';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
